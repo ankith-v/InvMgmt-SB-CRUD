@@ -66,7 +66,7 @@ public class InventoryController {
     public ResponseEntity<Inventory> createItem(@RequestBody Inventory inventory) {
         try {
             Inventory _inventory = inventoryRepository
-                    .save(new Inventory(inventory.getTitle(), inventory.getDescription(), inventory.isPublished()));
+                    .save(new Inventory(inventory.getTitle(), inventory.getDescription(), inventory.isListed(),inventory.getCount()));
             return new ResponseEntity<>(_inventory, HttpStatus.CREATED);
         }
         catch (Exception e) {
@@ -82,7 +82,8 @@ public class InventoryController {
             Inventory _inventory = inventoryData.get();
             _inventory.setTitle(inventory.getTitle());
             _inventory.setDescription(inventory.getDescription());
-            _inventory.setPublished(inventory.isPublished());
+            _inventory.setListed(inventory.isListed());
+            _inventory.setCount(inventory.getCount());
             return new ResponseEntity<>(inventoryRepository.save(_inventory), HttpStatus.OK);
         }
         else {
@@ -113,10 +114,10 @@ public class InventoryController {
 
     }
 
-    @GetMapping("/inventory/published")
-    public ResponseEntity<List<Inventory>> findByPublished() {
+    @GetMapping("/inventory/listed")
+    public ResponseEntity<List<Inventory>> findByListed() {
         try {
-            List<Inventory> items = inventoryRepository.findByPublished(true);
+            List<Inventory> items = inventoryRepository.findByListed(true);
 
             if (items.isEmpty()) {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);

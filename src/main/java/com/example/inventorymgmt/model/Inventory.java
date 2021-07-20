@@ -15,17 +15,17 @@ public class Inventory {
     @Column(name = "description")
     private String description;
 
-    @Column(name = "published")
-    private boolean published;
+    @Column(name = "listed")
+    private boolean listed;
 
-    public Inventory(String title, String description, boolean published) {
-        this.title = title;
-        this.description = description;
-        this.published = published;
-    }
+    @Column(name = "count")
+    private String count;
 
     public Inventory() {
+
     }
+
+
 
     public long getId() {
         return id;
@@ -47,12 +47,20 @@ public class Inventory {
         this.description = description;
     }
 
-    public boolean isPublished() {
-        return published;
+    public boolean isListed() {
+        return listed;
     }
 
-    public void setPublished(boolean published) {
-        this.published = published;
+    public void setListed(boolean listed) {
+        this.listed = listed;
+    }
+
+    public String getCount() {
+        return count;
+    }
+
+    public void setCount(String count) {
+        this.count = count;
     }
 
     @Override
@@ -61,8 +69,15 @@ public class Inventory {
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
-                ", published=" + published +
+                ", listed=" + listed +
+                ", count=" + count +
                 '}';
     }
 
+    public Inventory(String title, String description, boolean listed, String count) {
+        this.title = title;
+        this.description = description;
+        this.listed = listed;
+        this.count = count;
+    }
 }
